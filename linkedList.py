@@ -19,6 +19,24 @@ class Node:
     def getNext(self):
         return self.next
 
+class SkippedNode(Node):
+    ## For skipped posting lists
+    
+    def __init__(self, nodeData):
+        super().__init__(nodeData)
+        self._skipPointer = None
+
+    def setSkipPointer(self, new):
+        self._skipPointer = new
+
+    def getSkipPointer(self):
+        return self._skipPointer
+
+    def hasSkip(self):
+        if self._skipPointer:
+            return True
+        return False
+ 
 class LinkedList(object):
 
     def __init__(self):
@@ -65,7 +83,7 @@ class LinkedList(object):
                 self._currentIndex += 1
         return False
 
-    def add(self, newItem):
+    def add(self, newItem, skip = False):
         ##Adding only if unavaiable in linked list
         
         if self.search(newItem):
@@ -80,7 +98,11 @@ class LinkedList(object):
         self._head = temp
         self._size += 1
         """
-        temp = Node(newItem)
+        if skip:
+            temp = SkippedNode(newItem)
+        else:
+            temp = Node(newItem)
+ 
         if self._previous == None:
             self._head = temp
         else:
