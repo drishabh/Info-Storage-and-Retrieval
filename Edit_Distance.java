@@ -15,17 +15,17 @@ public class Edit_Distance {
 		int ROW = s1.length();
 		int COLUMN = s2.length();
 		
-		int[][] arr = new int[ROW][COLUMN];
+		int[][] arr = new int[ROW+1][COLUMN+1];
 		int i=0;
 
-		for (i=0; i<ROW; i++) {
+		for (i=0; i<=ROW; i++) {
 			arr[i][0] = i;
 			arr[0][i] = i;
 		}
 
-		for (i=1; i<ROW; i++) {
-			for (int j=1; j<COLUMN; j++) {
-				if (s1.charAt(i-1) == s2.charAt(i-1)) {
+		for (i=1; i<=ROW; i++) {
+			for (int j=1; j<=COLUMN; j++) {
+				if (s1.charAt(i-1) == s2.charAt(j-1)) {
 					arr[i][j] = Math.min(Math.min(arr[i-1][j]+1, arr[i][j-1]+1), arr[i-1][j-1]);
 				}
 				else {
@@ -34,6 +34,6 @@ public class Edit_Distance {
 			}
 		}
 
-		System.out.println("The edit distance is: "+ arr[ROW-1][COLUMN-1]);
+		System.out.println("The edit distance is: "+ arr[ROW][COLUMN]);
 	}
 }
