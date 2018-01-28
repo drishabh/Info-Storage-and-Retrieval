@@ -51,6 +51,7 @@ def main():
         else:
             print("None", end=" ")
         head = head.getNext()
+    print()
     """
     
     intersectWithSkips(arr1, arr2)
@@ -86,14 +87,16 @@ def intersectWithSkips(lyst1, lyst2):
                 while head1.hasSkip() and head1.getSkipPointer().getData() <= \
                       head2.getData():
                     head1 = head1.getSkipPointer()
-            head1 = head1.getNext()
+            else:
+                head1 = head1.getNext()
         else:
             if head2.hasSkip() and head2.getSkipPointer().getData() <= \
                head1.getData():
                 while head2.hasSkip() and head2.getSkipPointer().getData() <= \
                       head1.getData():
                     head2 = head2.getSkipPointer()
-            head2 = head2.getNext()
+            else:
+                head2 = head2.getNext()
 
             
     print("Intersecting indices:", end=" ")
