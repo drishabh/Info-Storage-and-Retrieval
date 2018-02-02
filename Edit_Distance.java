@@ -1,3 +1,9 @@
+/**
+ * @author: Rishabh Dalal
+ * description: Levenshtein's distance calculation algorithm
+ *
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
