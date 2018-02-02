@@ -107,43 +107,43 @@ public class Edit_Distance {
 	    }
 	    i = newX;
 	    j = newY;
-	    }
-	    System.out.println("String1 : " + vertical + " \nString 2: " + horizontal);
 	}
+	System.out.println("String1 : " + vertical + " \nString 2: " + horizontal);
+    }
 	
-	private static int[] getMax(Tile a, Tile b, Tile c, boolean flag) {
-	    // Doing comparisons and tracing the way back
+    private static int[] getMax(Tile a, Tile b, Tile c, boolean flag) {
+	// Doing comparisons and tracing the way back
 		
-	    int[] result = new int[3];
-	    int add;
-	    int aValue = a.getValue() + 1;
-	    int bValue = b.getValue() + 1;
-	    int cValue = c.getValue();
-	    if (flag == true) {
+	int[] result = new int[3];
+	int add;
+	int aValue = a.getValue() + 1;
+	int bValue = b.getValue() + 1;
+	int cValue = c.getValue();
+	if (flag == true) {
 			
-	  	if ((aValue <= bValue) && (aValue <= cValue)){result[0] = aValue; add= 0;}
-		else if ((bValue <= aValue) && (bValue <= cValue)){result[0] = bValue; add = 1;}
-		else {result[0] = cValue; add=2;}
-	    }
-	    else {
-	        cValue++;
-		if ((aValue <= bValue) && (aValue <= cValue)){result[0] = aValue; add = 0;}
-		    else if ((bValue <= aValue) && (bValue <= cValue)){result[0] = bValue; add = 1;}
-		    else {result[0] = cValue; add = 2;}
-		}
+	    if ((aValue <= bValue) && (aValue <= cValue)){result[0] = aValue; add= 0;}
+	    else if ((bValue <= aValue) && (bValue <= cValue)){result[0] = bValue; add = 1;}
+	    else {result[0] = cValue; add=2;}
+	}
+	else {
+	    cValue++;
+	    if ((aValue <= bValue) && (aValue <= cValue)){result[0] = aValue; add = 0;}
+	    else if ((bValue <= aValue) && (bValue <= cValue)){result[0] = bValue; add = 1;}
+	    else {result[0] = cValue; add = 2;}
+	}
 		
-		if (add == 0) {
-		    result[1] = a.getX();
-		    result[2] = a.getY();
-		}
-		else if (add == 1) {
-		    result[1] = b.getX();
-		    result[2] = b.getY();
-		}
-		else {
-		    result[1] = c.getX();
-		    result[2] = c.getY();
-		}
-	    return result;
-        }
+	if (add == 0) {
+	    result[1] = a.getX();
+	    result[2] = a.getY();
+	}
+	else if (add == 1) {
+	    result[1] = b.getX();
+	    result[2] = b.getY();
+	}
+	else {
+	    result[1] = c.getX();
+	    result[2] = c.getY();
+	}
+	   return result;
+    }
 }
