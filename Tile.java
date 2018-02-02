@@ -1,5 +1,6 @@
 /**
  *@author: Rishabh Dalal
+ *description: Tile class to facilitate the edit-distance class
  *
 */
 
@@ -14,7 +15,7 @@ public class Tile{
 		Tile(int i, int j){
 			arrow = new ArrayList();
 			x = i;
-			x = j;
+			y = j;
 		}
 		
 		int getValue() {
