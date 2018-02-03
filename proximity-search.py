@@ -21,48 +21,79 @@ def main():
             createIndex(dirItem, docInt, dictionary)
             docInt += 1
 
+    """
+    ##Printing following data of all docs: word, occuring in doc : indices in doc
     for i in dictionary.keys():
         print(i)
         for j in dictionary[i]:
             print(j[0], ":", end=" ")
             printll(j[1])
         print()
-
+    """
+    
     phrase = input("Enter the phrase: ")
     query = phrase.lower().split()
+    queryDict = {}
+    for i in range(len(query)):
+        queryDict[query[i]] = i
 
-    intersectId = []
-    for i in query:
-        if not i in dictionary:
-            print("No intesection")
-            sys.exit()
-        else:
-            for j in dictionary[i]:
-                lyst = getList(j[1])
-                lyst.insert(0, j[0])
-                intersectId.append(j[0])
+    docIdToProcess = getIntersectingDocIds(dictionary, query)
 
-def getList(lyst):
-    ##Converting a linked list to python list
+    askedDict = {}
+    for ids in docIdToProcess:
+        for k in dictionary[query[0]]:
+            if k[0] == ids:
+                askedDict[ids] = k[1]
     
-    l = []
-    head = lyst._head
-    if head:
-        while head:
-            l.append(head.getData())
-            head = head.getNext()
-    return l
+    for cin in query[1:]:
+        for ids in docIdToProcess:
+            for k in dictionary[cin]:
+                if k[0] == ids:
+                    askedDict[ids] = combineLists(askedDict[ids], k[1], queryDict[cin])
 
-def combineListsNot(a, b, f1, f2, total):
-    ##Combining two linked lists to find intersect if there is
+    keys = askedDict.keys()
+    queriedDocs = []
+    for i in keys:
+        if not askedDict[i].isEmpty():
+            queriedDocs.append(i)
 
+    print("The phrase occurs in following documents:", queriedDocs)
+
+def getIntersectingDocIds(dyct, cin):
+    ## Getting docs ids of all the documents in which all the words
+    ## of the phrase occurs
+
+    docId = set()
+    if cin[0] in dyct:
+        for doc in dyct[cin[0]]:
+            docId.add(doc[0])
+    else:
+        print("No intersection")
+        sys.exit()
+    
+    for query in cin[1:]:
+        if not query in dyct:
+            print("No intersection")
+            sys.exit()
+            
+        docIdTemp = set()
+        for doc in dyct[query]:
+            docIdTemp.add(doc[0])
+        docId = docId & docIdTemp
+
+    print("All individual word of phrase occurs in docs:", list(docId))
+    return docId
+
+def combineLists(a, b, off):
+    ##Combining two linked lists to find if they contain consecutive indices
+    
     temp = LinkedList()
     p1 = a._head
     p2 = b._head
 
     while p1 and p2:
 
-        if p1.getData() == p2.getData():
+        if p1.getData() + off == p2.getData():
             temp.add(p1.getData())
             p1 = p1.getNext()
             p2 = p2.getNext()
@@ -72,7 +103,7 @@ def combineListsNot(a, b, f1, f2, total):
 
         elif p2.getData() < p1.getData():
             p2 = p2.getNext()
-            
+
     return temp
 
 def printll(lyst):
