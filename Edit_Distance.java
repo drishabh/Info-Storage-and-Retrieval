@@ -34,8 +34,10 @@ public class Edit_Distance {
 
 	for (i=0; i<=ROW; i++) {
 	    arr[i][0].setValue(i);
-	    arr[0][i].setValue(i);
 	    arr[i][0].setArrow(i-1, 0);
+	}
+	for (i=0; i<=COLUMN; i++) {
+	    arr[0][i].setValue(i);
 	    arr[0][i].setArrow(0, i-1);
 	}
 
